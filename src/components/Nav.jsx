@@ -4,7 +4,7 @@ import { AuthContext } from '../Auth/ContextProvider';
 import useRole from '../Hooks/useRole';
 
 function Nav() {
-    const { user,logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [role] = useRole()
 
     return (
@@ -49,14 +49,18 @@ function Nav() {
                         </NavLink>
                     </ul>
                 </div>
-                <div className="navbar-end">
-                    <div className='flex items-center justify-center gap-5'>
-                        <Link className='cursor-pointer'>
+                <div className="navbar-end absolute right-0">
+                    <div className='flex items-center justify-center gap-2'>
+                        <Link className='cursor-pointer relative flex gap-1'>
                             <img src="/assets/bag.png" alt="" />
-                            <div className='absolute top-10 right-[8.5rem] bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center'>2</div>
+                            <div className=' bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center mb-2'>2</div>
                         </Link>
-                        {user && user ? <button onClick={() => logOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button> 
-                        : <Link to={'/signin'}><button className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Sign In</button></Link>}
+                        {user && user ?
+                            <>
+                                <button onClick={() => logOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button>
+                                <img className='w-10 rounded-full hidden md:block md:mr-10 mr-0' src={user?.photoURL} alt="img" />
+                            </>
+                            : <Link to={'/signin'}><button className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Sign In</button></Link>}
                     </div>
                 </div>
             </div>
