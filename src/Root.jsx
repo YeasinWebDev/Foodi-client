@@ -7,8 +7,10 @@ function Root() {
     return (
         <div className='px-4 py-5 lg:px-10 lg:py-6'>
             <Nav />
-            <Outlet />
-            <Footer/>
+            <div className='min-h-[60vh]'>
+                <Outlet />
+            </div>
+            <Footer />
         </div>
     )
 }

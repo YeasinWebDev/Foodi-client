@@ -9,30 +9,36 @@ import Root from './Root';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Home from './Page/Home';
+import ContextProvider from './Auth/ContextProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
-    children:[
+    element: <Root />,
+    children: [
       {
         path: "/",
-        element:<Home/>
+        element: <Home />
       },
       {
         path: "/signin",
-        element: <SignIn/>
+        element: <SignIn />
       },
       {
-        path:"/signup",
-        element: <SignUp/>
+        path: "/signup",
+        element: <SignUp />
       }
     ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-     <RouterProvider router={router} />
-  </React.StrictMode>,
+    <QueryClientProvider client={queryClient}>
+    <ContextProvider>
+      <RouterProvider router={router} />
+    </ContextProvider>
+    </QueryClientProvider>
 )

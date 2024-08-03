@@ -1,66 +1,90 @@
-import React, { createContext, useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth";
+import React, { createContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut,GoogleAuthProvider,signInWithPopup, updateProfile } from "firebase/auth";
 import axios from 'axios';
 import { auth } from './firebaseConfig';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
 
-export const AuthContext = createContext(null)
+export const AuthContext = createContext(null);
+
 function ContextProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const axiosCommon = useAxiosCommon()
-    const [user, setUser] = useState(null)
-    const [loading, setloading] = useState(true)
 
     const createUser = (email, pass) => {
-        setloading(true);
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, pass);
     };
 
+    const logInByGoogle = () => {
+        setLoading(true)
+        const provider = new GoogleAuthProvider();
+        return signInWithPopup(auth, provider)
+    }
+
+    const updateUserProfile = (name, photo) => {
+        setLoading(true);
+        return updateProfile(auth?.currentUser, {
+            displayName: name,
+            photoURL: photo,
+        })
+    }
+
     const signIn = (email, pass) => {
-        setloading(true)
-        return signInWithEmailAndPassword(auth, email, pass)
-    }
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, pass);
+    };
 
-    const LogOut = () => {
-        setloading(true)
-        signOut(auth)
-    }
+    const logOut = () => {
+        setLoading(true);
+        return signOut(auth).finally(() => setLoading(false));
+    };
 
+    const getToken = async (email) => {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, { email }, { withCredentials: true });
+            return response.data; // Assuming the token is in the response data
+        } catch (error) {
+            console.error("Error fetching token:", error);
+            return null;
+        }
+    };
 
+    const saveUser = async user => {
+        const currentuser = {
+            email: user?.email,
+            name: user?.name || user?.displayName,
+            pin: user?.pin ,
+            role: "normal",
+        };
 
-    // get the token from the server
-    const getToken = (email) => {
-        const data = axios.post(`${import.meta.env.VITE_API_URL}/jwt`, { email }, { withCredentials: true })
-        return data
-    }
-
-
-
+        const { data } = await axiosCommon.put(`/user`, currentuser);
+        return data;
+    };
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setLoading(true);
             if (currentUser) {
-                setUser(currentUser)
+                setUser(currentUser);
                 await getToken(currentUser.email);
-                setloading(false);
             } else {
                 setUser(null);
-                setloading(false);
-
             }
+            setLoading(false);
         });
+
         return () => {
-            unSubscribe()
-        }
-    }, [])
+            unSubscribe();
+        };
+    }, []);
 
-
-
-    const authinfo = { user, setUser, createUser, signIn, LogOut,  loading, setloading }
+    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser };
     return (
-        <AuthContext.Provider value={authinfo}>
+        <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
 
-export default ContextProvider
+export default ContextProvider;
