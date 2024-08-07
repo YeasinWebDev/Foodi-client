@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
 import Card from '../components/Card';
+import { Link } from 'react-router-dom';
 
 function Menu() {
   const [activeTab, setActiveTab] = useState('All');
@@ -64,9 +65,9 @@ function Menu() {
         ) : (
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full md:w-[80%] mx-auto">
             {items.map(item => (
-              <div key={item._id} >
+              <Link to={`/itemDetails/${item._id}`} key={item._id} >
                 <Card img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price} />
-              </div>
+              </Link>
             ))}
           </div>
         )

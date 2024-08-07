@@ -12,6 +12,7 @@ import Home from './Page/Home';
 import ContextProvider from './Auth/ContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Menu from './Page/Menu';
+import Details from './Page/Details';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path:'/menu',
         element:<Menu/>
+      },
+      {
+        path:'/itemDetails/:id',
+        element:<Details/>
       }
     ]
   },
