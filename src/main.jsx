@@ -11,6 +11,7 @@ import SignUp from './components/SignUp';
 import Home from './Page/Home';
 import ContextProvider from './Auth/ContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Menu from './Page/Menu';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />
+      },
+      {
+        path:'/menu',
+        element:<Menu/>
       }
     ]
   },
