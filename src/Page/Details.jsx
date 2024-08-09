@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useAxiosSecure from '../Hooks/useAxiosSecure'
+import Card from '../components/Card'
 
 function Details() {
     const { id } = useParams()
     const [item, setItem] = useState('')
     const [loading, setLoading] = useState(false);
+    const [relatedData, setRelatedData] = useState([])
     const axiosSecure = useAxiosSecure()
 
     const details = async () => {
         setLoading(true)
         try {
             const response = await axiosSecure.get(`/food-item/${id}`)
-            setItem(response.data)
+            setItem(response.data.result)
+            setRelatedData(response.data.categoryData)
             setLoading(false)
         } catch (error) {
             setLoading(false)
@@ -20,12 +23,17 @@ function Details() {
         }
     }
 
+    const filtertedCategory = relatedData.filter(item => item._id !== id)
+
     useEffect(() => {
         details()
+        window.scrollTo(0, 0)
     }, [id])
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black"></div>
+        </div>
     }
 
     const handelAddCart = (id) => {
@@ -38,7 +46,7 @@ function Details() {
                 <img className='w-40 h-40 md:w-80 md:h-80 rounded-xl object-cover' src={item?.img} alt="" />
                 <div className='w-full md:w-[60%]'>
                     <div className='flex items-center justify-between'>
-                        <h1 className='font-semibold text-xl md:text-2xl lg:text-4xl'>{item?.name}</h1>
+                        <h1 className='font-semibold text-2xl  lg:text-4xl'>{item?.name}</h1>
                         <button onClick={() => handelAddCart(item?._id)} className='bg-orange-500 px-3 py-2 rounded-xl text-white font-semibold'>Add to Cart</button>
                     </div>
                     <p className='text-sm text-gray-500 py-3'>
@@ -65,6 +73,20 @@ function Details() {
                             <span className='text-yellow-500'> {item?.rating} ★</span>
                         </h1>
                     </div>
+                </div>
+            </div>
+            <div className='pt-20 w-full md:w-[80%] mx-auto'>
+                <h1 className='font-semibold text-2xl'>
+                    More Food Related <span className='text-orange-600'>{item?.category}</span>
+                </h1>
+                <div className='flex items-center justify-center gap-5 flex-wrap pt-5'>
+                    {
+                        filtertedCategory.map(item => (
+                            <Link to={`/itemDetails/${item._id}`}>
+                                <Card img={item?.img} price={item?.price} star={item?.rating} name={item?.name} des={item?.des} />
+                            </Link>
+                        ))
+                    }
                 </div>
             </div>
         </>
