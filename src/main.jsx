@@ -13,6 +13,7 @@ import ContextProvider from './Auth/ContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Menu from './Page/Menu';
 import Details from './Page/Details';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
@@ -50,5 +51,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ContextProvider>
       <RouterProvider router={router} />
     </ContextProvider>
+    <Toaster />
     </QueryClientProvider>
 )

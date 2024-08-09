@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {useParams } from 'react-router-dom'
 import useAxiosSecure from '../Hooks/useAxiosSecure'
 import Card from '../components/Card'
 
@@ -81,10 +81,9 @@ function Details() {
                 </h1>
                 <div className='flex items-center justify-center gap-5 flex-wrap pt-5'>
                     {
-                        filtertedCategory.map(item => (
-                            <Link to={`/itemDetails/${item._id}`}>
-                                <Card img={item?.img} price={item?.price} star={item?.rating} name={item?.name} des={item?.des} />
-                            </Link>
+                        filtertedCategory?.map(item => (
+                            
+                                <Card key={item?._id} id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price}/>
                         ))
                     }
                 </div>
