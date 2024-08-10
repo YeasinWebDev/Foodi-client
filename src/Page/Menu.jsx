@@ -64,7 +64,7 @@ function Menu() {
         ) : (
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full md:w-[80%] mx-auto">
             {items?.map(item => (
-                <Card id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price}/>
+                <Card key={item?._id} id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price}/>
             ))}
           </div>
         )

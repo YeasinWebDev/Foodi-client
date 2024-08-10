@@ -8,8 +8,16 @@ export const AuthContext = createContext(null);
 
 function ContextProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [count, setCount] = useState(1)
+    const [refress, setrefress] = useState(false)
     const [loading, setLoading] = useState(true);
     const axiosCommon = useAxiosCommon()
+
+    const countNum = async() =>{
+       const res= await axiosCommon.get('/allCart')
+       return setCount(res.data.totalCount)
+    }
+
 
     const createUser = (email, pass) => {
         setLoading(true);
@@ -79,7 +87,11 @@ function ContextProvider({ children }) {
         };
     }, []);
 
-    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser };
+    useEffect(() =>{
+        countNum()
+    },[refress])
+
+    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser,count,setrefress, refress };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

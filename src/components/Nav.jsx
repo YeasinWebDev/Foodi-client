@@ -4,7 +4,7 @@ import { AuthContext } from '../Auth/ContextProvider';
 import useRole from '../Hooks/useRole';
 
 function Nav() {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut, count } = useContext(AuthContext);
     const [role] = useRole();
 
     return (
@@ -28,7 +28,7 @@ function Nav() {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-[#f2f2f2]">
                             <li>
                                 <NavLink to={'/'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
                                     Home
@@ -61,7 +61,7 @@ function Nav() {
                     <div className='flex items-center justify-center gap-2'>
                         <Link className='cursor-pointer relative flex gap-1'>
                             <img src="/assets/bag.png" alt="" />
-                            <div className=' bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center mb-2'>2</div>
+                            <div className=' bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center mb-2'>{count}</div>
                         </Link>
                         {user ?
                             <>
