@@ -6,17 +6,19 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 function Cart() {
     const axiosSecure = useAxiosSecure();
-    const { setrefress, qty, refress } = useContext(AuthContext)
+    const { setrefress, qty, refress, user } = useContext(AuthContext)
     const [allCart, setAllCart] = useState(null)
     const [loading, setLoading] = useState(false);
 
     // all cart
     const getData = async () => {
-        setLoading(true)
-        const res = await axiosSecure.get('/allCartData')
-        setAllCart(res.data)
-        setLoading(false)
-        setrefress(!refress)
+        if (user) {
+            setLoading(true)
+            const res = await axiosSecure.post('/allCartData', { email: user?.email })
+            setAllCart(res.data)
+            setLoading(false)
+            setrefress(!refress)
+        }
     }
     useEffect(() => {
         getData()
@@ -24,14 +26,17 @@ function Cart() {
 
     // update a qty
     const incrementOrDecrement = async (type, num) => {
-        const data = { type, num }
+        const data = { type, num,email: user?.email}
         const result = await axiosSecure.post('/updateCart', { data })
-        setrefress(!refress)
+        if (result.status === 200) {
+            setrefress(!refress)
+        }
     };
 
     // Delete a cart
     const handelDelete = async (num) => {
-        const result = await axiosSecure.post('/deleteCart', { num })
+        const data = { num, email: user?.email }
+        const result = await axiosSecure.post('/deleteCart', { data })
         setrefress(!refress)
     }
 
@@ -39,7 +44,7 @@ function Cart() {
     if (loading) {
         return <Loading />
     }
-    
+
 
     return (
         <div>

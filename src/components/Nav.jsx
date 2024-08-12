@@ -1,11 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Auth/ContextProvider';
 import useRole from '../Hooks/useRole';
+import useAxiosCommon from '../Hooks/useAxiosCommon';
 
 function Nav() {
-    const { user, logOut,qty } = useContext(AuthContext);
+    const { user, logOut,qty ,setQty,refress} = useContext(AuthContext);
     const [role] = useRole();
+    const axiosCommon = useAxiosCommon()
+
+
+    const countNum = async () => {
+        if (user) {
+            const res = await axiosCommon.post('/allCart', { email: user?.email })
+            return setQty(res.data.totalCount)
+        }
+    }
+
+    useEffect(() => {
+        countNum()
+    }, [refress,user])
+
     return (
         <div className='border-b-2 border-orange-400 mb-10'>
             <div className="navbar">

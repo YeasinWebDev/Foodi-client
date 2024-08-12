@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut,GoogleAuthProvider,signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import axios from 'axios';
 import { auth } from './firebaseConfig';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
@@ -8,17 +8,12 @@ export const AuthContext = createContext(null);
 
 function ContextProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [qty, setQty] = useState(1)
+    const [qty, setQty] = useState(0)
     const [refress, setrefress] = useState(false)
     const [loading, setLoading] = useState(true);
     const axiosCommon = useAxiosCommon()
 
-    const countNum = async() =>{
-       const res= await axiosCommon.get('/allCart')
-       return setQty(res.data.totalCount)
-    }
-
-
+    
     const createUser = (email, pass) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, pass);
@@ -62,7 +57,7 @@ function ContextProvider({ children }) {
         const currentuser = {
             email: user?.email,
             name: user?.name || user?.displayName,
-            pin: user?.pin ,
+            pin: user?.pin,
             role: "normal",
         };
 
@@ -87,11 +82,8 @@ function ContextProvider({ children }) {
         };
     }, []);
 
-    useEffect(() =>{
-        countNum()
-    },[refress])
 
-    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser,qty,setrefress, refress };
+    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading, logInByGoogle, updateUserProfile, saveUser, qty, setrefress, refress,setQty };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
