@@ -3,13 +3,14 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 import { AuthContext } from '../Auth/ContextProvider';
 import Loading from '../components/Loading';
 import { TiDeleteOutline } from "react-icons/ti";
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
     const axiosSecure = useAxiosSecure();
     const { setrefress, qty, refress, user } = useContext(AuthContext)
     const [allCart, setAllCart] = useState(null)
     const [loading, setLoading] = useState(false);
-
+    
     // all cart
     const getData = async () => {
         if (user) {

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Auth/ContextProvider';
 import useRole from '../Hooks/useRole';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
 
 function Nav() {
-    const { user, logOut,qty ,setQty,refress} = useContext(AuthContext);
+    const { user, logOut, qty, setQty, refress, setrefress } = useContext(AuthContext);
     const [role] = useRole();
     const axiosCommon = useAxiosCommon()
+    const navigate = useNavigate();
 
 
     const countNum = async () => {
@@ -20,6 +21,12 @@ function Nav() {
     useEffect(() => {
         countNum()
     }, [refress,user])
+
+    const handelLogOut = async () => {
+        await logOut();
+        setQty(0)
+        navigate('/'); 
+    }
 
     return (
         <div className='border-b-2 border-orange-400 mb-10'>
@@ -79,7 +86,7 @@ function Nav() {
                         </Link>
                         {user ?
                             <>
-                                <button onClick={() => logOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button>
+                                <button onClick={() => handelLogOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button>
                                 <img className='w-10 rounded-full hidden md:block md:mr-10 mr-0' src={user?.photoURL} alt="img" />
                             </>
                             : <Link to={'/signin'}><button className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Sign In</button></Link>}

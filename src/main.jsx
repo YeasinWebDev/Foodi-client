@@ -15,6 +15,7 @@ import Menu from './Page/Menu';
 import Details from './Page/Details';
 import { Toaster } from 'react-hot-toast';
 import Cart from './Page/Cart';
+import PrivateRoute from './Route/PrivateRoute';
 
 const queryClient = new QueryClient();
 
@@ -41,11 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path:'/itemDetails/:id',
-        element:<Details/>
+        element:<PrivateRoute><Details/></PrivateRoute>
       },
       {
         path:"/cart",
-        element:<Cart/>
+        element:<PrivateRoute><Cart/></PrivateRoute>
       }
     ]
   },
