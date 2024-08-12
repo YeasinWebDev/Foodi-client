@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Menu from './Page/Menu';
 import Details from './Page/Details';
 import { Toaster } from 'react-hot-toast';
+import Cart from './Page/Cart';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path:'/itemDetails/:id',
         element:<Details/>
+      },
+      {
+        path:"/cart",
+        element:<Cart/>
       }
     ]
   },

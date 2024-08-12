@@ -8,14 +8,14 @@ export const AuthContext = createContext(null);
 
 function ContextProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [count, setCount] = useState(1)
+    const [qty, setQty] = useState(1)
     const [refress, setrefress] = useState(false)
     const [loading, setLoading] = useState(true);
     const axiosCommon = useAxiosCommon()
 
     const countNum = async() =>{
        const res= await axiosCommon.get('/allCart')
-       return setCount(res.data.totalCount)
+       return setQty(res.data.totalCount)
     }
 
 
@@ -91,7 +91,7 @@ function ContextProvider({ children }) {
         countNum()
     },[refress])
 
-    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser,count,setrefress, refress };
+    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading,logInByGoogle,updateUserProfile,saveUser,qty,setrefress, refress };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

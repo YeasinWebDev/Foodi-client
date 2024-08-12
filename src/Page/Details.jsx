@@ -4,6 +4,7 @@ import useAxiosSecure from '../Hooks/useAxiosSecure'
 import Card from '../components/Card'
 import { AuthContext } from '../Auth/ContextProvider';
 import toast from 'react-hot-toast';
+import Loading from '../components/Loading';
 
 function Details() {
     const { id } = useParams();
@@ -64,9 +65,7 @@ function Details() {
     };
 
     if (loading) {
-        return <div className="flex items-center justify-center min-h-screen">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black"></div>
-        </div>
+        return <Loading/>
     }
 
 

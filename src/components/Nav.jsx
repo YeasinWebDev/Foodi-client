@@ -4,9 +4,8 @@ import { AuthContext } from '../Auth/ContextProvider';
 import useRole from '../Hooks/useRole';
 
 function Nav() {
-    const { user, logOut, count } = useContext(AuthContext);
+    const { user, logOut,qty } = useContext(AuthContext);
     const [role] = useRole();
-
     return (
         <div className='border-b-2 border-orange-400 mb-10'>
             <div className="navbar">
@@ -41,7 +40,7 @@ function Nav() {
                             </li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl"><img className='w-20 md:w-28' src="/assets/logo.png" alt="" /></a>
+                    <Link to={'/'} className="btn btn-ghost text-xl"><img className='w-20 md:w-28' src="/assets/logo.png" alt="" /></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 z-[1]">
@@ -59,9 +58,9 @@ function Nav() {
                 </div>
                 <div className="navbar-end absolute right-0">
                     <div className='flex items-center justify-center gap-2'>
-                        <Link className='cursor-pointer relative flex gap-1'>
+                        <Link to={'/cart'} className='cursor-pointer relative flex gap-1'>
                             <img src="/assets/bag.png" alt="" />
-                            <div className=' bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center mb-2'>{count}</div>
+                            <div className=' bg-red-600 rounded-xl text-white w-5  h-5 flex items-center justify-center mb-2'>{qty}</div>
                         </Link>
                         {user ?
                             <>
