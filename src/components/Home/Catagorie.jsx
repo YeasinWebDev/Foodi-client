@@ -5,7 +5,7 @@ function Catagorie() {
     return (
         <div className='pt-20'>
             <h1 className='text-[#FF6868] font-semibold text-lg flex items-center justify-center'>Customer Favorites</h1>
-            <h1 className='font-bold text-5xl flex items-center justify-center py-5'>Popular Catagories</h1>
+            <h1 className='font-bold text-2xl md:text-4xl lg:text-5xl flex items-center justify-center py-5'>Popular Catagories</h1>
 
             <div className='flex items-center justify-center gap-5 flex-wrap pt-5'>
                     {

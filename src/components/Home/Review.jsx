@@ -32,9 +32,9 @@ const data = [
 function Review() {
     return (
         <div className="container mx-auto px-4 pt-10">
-            <h1 className="text-4xl font-bold text-center mb-10">Food Reviews <FaStar className="inline text-yellow-500" /></h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-center mb-10">Food Reviews <FaStar className="inline text-yellow-500" /></h1>
             <div className='flex flex-col md:flex-row items-center justify-center'>
-                <img src="/assets/chef.png" alt="Chef" className="w-full md:w-1/3 mb-6 md:mb-0" />
+                <img src="/assets/chef.png" alt="Chef" className="w-1/2 md:w-1/3 mb-6 md:mb-0" />
                 <div className="w-full md:w-2/3">
                     <h1 className='font-semibold text-xl md:text-2xl lg:text-3xl xl:text-4xl flex items-center justify-center pb-3'>What Our Customers Say About Us</h1>
                     <Swiper
@@ -51,7 +51,7 @@ function Review() {
                         {
                             data.map((review, index) => (
                                 <SwiperSlide key={index}>
-                                    <div className="bg-orange-100 text-black shadow-lg rounded-lg p-6 mx-5 flex flex-col items-center">
+                                    <div className="bg-orange-100 text-black shadow-lg rounded-lg px-6 py-10 mx-5 flex flex-col items-center">
                                         <div className="flex items-center mb-2">
                                             {Array(Math.floor(review.rating)).fill().map((_, i) => (
                                                 <FaStar key={i} className="text-yellow-500" />
