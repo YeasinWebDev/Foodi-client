@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Catagorie() {
     return (
@@ -9,10 +10,10 @@ function Catagorie() {
             <div className='flex items-center justify-center gap-5 flex-wrap pt-5'>
                     {
                         data.map((item, index) => (
-                            <div key={index} className='flex flex-col items-center gap-5 shadow-md px-10 py-3 rounded-xl border-2 border-orange-100 cursor-pointer'>
+                            <Link to={`/catagorie/${item?.name}`} key={index} className='flex flex-col items-center gap-5 shadow-md px-10 py-3 rounded-xl border-2 border-orange-100 cursor-pointer'>
                                 <img src={item.img} alt={item.name} className='w-20 h-20' />
                                 <p className='text-sm font-bold'>{item.name}</p>
-                            </div>
+                            </Link>
                         ))
                     }
             </div>

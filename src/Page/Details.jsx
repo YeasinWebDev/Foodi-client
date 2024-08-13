@@ -72,7 +72,7 @@ function Details() {
     return (
         <>
             <div className='flex items-center flex-col md:flex-row justify-center gap-10 w-full xl:w-[60%] mx-auto'>
-                <img className='w-40 h-40 md:w-80 md:h-80 rounded-xl object-cover' src={item?.img} alt="" />
+                <img className='w-48 h-48 md:w-80 md:h-80 rounded-xl object-cover' src={item?.img} alt="" />
                 <div className='w-full md:w-[60%]'>
                     <div className='flex items-center justify-between'>
                         <h1 className='font-semibold text-2xl lg:text-4xl'>{item?.name}</h1>

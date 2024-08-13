@@ -68,7 +68,7 @@ function Card({ id, img, price, star, name, des }) {
                 <Link to={`/itemDetails/${id}`}>
                     <div>
                         <img
-                            className='w-40 h-40 md:w-60 md:h-60 rounded-xl pt-4 object-cover'
+                            className='w-48 h-48 md:w-60 md:h-60 rounded-xl pt-4 object-cover'
                             src={img}
                             alt="Product"
                         />

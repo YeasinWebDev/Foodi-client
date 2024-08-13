@@ -58,7 +58,8 @@ function Cart() {
                         (
                             allCart?.map((item) => (
                                 <div key={`${item?._id}`} className='flex md:flex-row gap-5 md:gap-0 flex-col justify-between border-2 p-2 rounded-xl border-orange-200'>
-                                    <div className='flex gap-5'>
+                                    <div className='relative flex gap-5'>
+                                    <h1 onClick={() => handelDelete(item?.num)} className='absolute right-0 md:hidden text-red-800 cursor-pointer'><TiDeleteOutline size={29} /></h1>
                                         <img className='w-28 rounded-xl' src={item?.img} alt="" />
                                         <div>
                                             <h1 className='font-semibold text-xl'>{item?.name}</h1>
@@ -67,7 +68,7 @@ function Cart() {
                                     </div>
 
                                     <div className='relative flex flex-col gap-3'>
-                                        <h1 onClick={() => handelDelete(item?.num)} className='absolute right-0 text-red-800 cursor-pointer'><TiDeleteOutline size={29} /></h1>  {/* delete btn */}
+                                        <h1 onClick={() => handelDelete(item?.num)} className='absolute right-0 hidden md:block text-red-800 cursor-pointer'><TiDeleteOutline size={29} /></h1>  {/* delete btn */}
                                         <h1 className='font-semibold pt-8'>Price: <span className='text-red-800'>${item?.price}</span></h1>
                                         <div className='flex-nowrap'>
                                             <button onClick={() => incrementOrDecrement('dec', item?.num)} className='bg-orange-500 px-3 py-2 rounded-l-xl text-white font-semibold'>-</button>

@@ -125,9 +125,9 @@ const SignUp = () => {
 
                     <button type="submit" className='btn bg-[#EA580C] hover:bg-orange-800 text-white px-4 py-2 font-semibold rounded-xl flex items-center justify-center w-full'>Sign Up</button>
 
-                    <div className="flex items-center justify-center flex-col mt-5 bg-orange-600 w-full rounded-xl btn hover:bg-orange-800">
+                    <div onClick={googleSignIn} className="flex items-center justify-center flex-col mt-5 bg-orange-600 w-full rounded-xl btn hover:bg-orange-800">
                         <div className='flex items-center justify-center gap-5 cursor-pointer'>
-                            <div className='py-3' onClick={googleSignIn}>
+                            <div className='py-3'>
                                 <FaGoogle color='white' size={24} />
                             </div>
                         </div>
