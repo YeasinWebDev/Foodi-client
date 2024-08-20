@@ -58,8 +58,7 @@ function Cart() {
 
     const handelPayment = async () => {
         const payment = {
-            totalAmount: totalAmount * 100,
-            quantity: qty,
+            cartItems: allCart,
             userEmail: user?.email
         }
         try {
