@@ -17,6 +17,7 @@ import { Toaster } from 'react-hot-toast';
 import Cart from './Page/Cart';
 import PrivateRoute from './Route/PrivateRoute';
 import Catagories from './Page/Catagories';
+import SuccessPage from './Page/SuccessPage';
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path:'/catagorie/:name',
         element:<Catagories/>
+      },
+      {
+        path:'/success',
+        element:<SuccessPage/>
       }
     ]
   },
