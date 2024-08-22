@@ -75,7 +75,7 @@ function Details() {
                 <img className='w-48 h-48 md:w-80 md:h-80 rounded-xl object-cover' src={item?.img} alt="" />
                 <div className='w-full md:w-[60%]'>
                     <div className='flex items-center justify-between'>
-                        <h1 className='font-semibold text-2xl lg:text-4xl'>{item?.name}</h1>
+                        <h1 className='font-semibold text-2xl lg:text-4xl w-[20vw] lg:w-[30vw] xl:w-[15vw] 2xl:w-[20vw]'>{item?.name}</h1>
                         <div className='flex items-center'>
                             <div className='flex-nowrap'>
                                 <button onClick={decrementCount} className='bg-orange-500 px-3 py-2 rounded-l-xl text-white font-semibold'>-</button>

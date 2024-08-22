@@ -20,12 +20,12 @@ function Nav() {
 
     useEffect(() => {
         countNum()
-    }, [refress,user])
+    }, [refress, user])
 
     const handelLogOut = async () => {
         await logOut();
         setQty(0)
-        navigate('/'); 
+        navigate('/');
     }
 
     return (
@@ -60,6 +60,9 @@ function Nav() {
                                     Menu
                                 </NavLink>
                             </li>
+                            <li>
+                            <Link to={role && role === 'admin' ? '/dashboard/profile' : '/dashboard/profile'}  className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Dashboard</Link>
+                            </li>
                         </ul>
                     </div>
                     <Link to={'/'} className="btn btn-ghost text-xl"><img className='w-20 md:w-28' src="/assets/logo.png" alt="" /></Link>
@@ -86,6 +89,7 @@ function Nav() {
                         </Link>
                         {user ?
                             <>
+                                <Link to={role && role === 'admin' ? '/dashboard/profile' : '/dashboard/profile'}  className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl hidden lg:flex'>Dashboard</Link>
                                 <button onClick={() => handelLogOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button>
                                 <img className='w-10 rounded-full hidden md:block md:mr-10 mr-0' src={user?.photoURL} alt="img" />
                             </>

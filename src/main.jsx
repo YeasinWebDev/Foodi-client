@@ -18,6 +18,12 @@ import Cart from './Page/Cart';
 import PrivateRoute from './Route/PrivateRoute';
 import Catagories from './Page/Catagories';
 import SuccessPage from './Page/SuccessPage';
+import DashboardLayout from './Layouts/DashboardLayout';
+import Profile from './components/Dashboard/Profile';
+import AddFood from './components/Dashboard/AddFood';
+import MyFood from './components/Dashboard/MyFood';
+import MyTransition from './components/Dashboard/MyTransition';
+import AllUsers from './components/Dashboard/AllUsers';
 
 const queryClient = new QueryClient();
 
@@ -60,6 +66,36 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:'dashboard',
+    element:<DashboardLayout/>,
+    children:[
+      {
+        path:'profile',
+        element:<PrivateRoute><Profile/></PrivateRoute>
+      },
+      {
+        path:'addFood',
+        element:<PrivateRoute><AddFood/></PrivateRoute>
+      },
+      {
+        path:'myFood',
+        element:<PrivateRoute><MyFood/></PrivateRoute>
+      },
+      {
+        path:'myFood',
+        element:<PrivateRoute><MyFood/></PrivateRoute>
+      },
+      {
+        path:'myTransition',
+        element:<PrivateRoute><MyTransition/></PrivateRoute>
+      },
+      {
+        path:'allUsers',
+        element:<PrivateRoute><AllUsers/></PrivateRoute>
+      }
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
