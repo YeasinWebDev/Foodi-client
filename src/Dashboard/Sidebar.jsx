@@ -67,7 +67,7 @@ function Sidebar() {
 
             </div>
 
-            <button onClick={handelLogout} className='py-3 bg-[#302F2A] mt-5 text-white flex items-center justify-center font-semibold rounded-lg'>LogOut <span className='pl-3'><MdLogout /></span></button>
+            <button onClick={handelLogout} className='py-3 bg-orange-600 mt-5 text-white flex items-center justify-center font-semibold rounded-lg'>LogOut <span className='pl-3'><MdLogout /></span></button>
         </div>
     )
 }

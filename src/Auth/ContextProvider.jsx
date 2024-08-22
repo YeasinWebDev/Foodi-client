@@ -58,7 +58,7 @@ function ContextProvider({ children }) {
             email: user?.email,
             name: user?.name || user?.displayName,
             pin: user?.pin,
-            role: "normal",
+            role: "user",
         };
 
         const { data } = await axiosCommon.put(`/user`, currentuser);
