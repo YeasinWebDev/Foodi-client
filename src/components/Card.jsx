@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../Auth/ContextProvider';
+import UpdateModal from './UpdateModal ';
 
-function Card({ id, img, price, star, name, des }) {
+function Card({ id, img, price, star, name, des, email,items,category,setReload,reload }) {
     const [favArray, setFavArray] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentItem, setCurrentItem] = useState({});
 
     const item = {
         _id: id,
@@ -19,6 +22,18 @@ function Card({ id, img, price, star, name, des }) {
         name: name,
         des: des,
         email: user?.email
+    };
+    const updateItem = {
+        img: img,
+        price: price,
+        rating: star,
+        name: name,
+        des: des,
+        items: items, 
+        email: user?.email,
+        category:category,
+        addedBy: user?.displayName,
+        addedByEmail:user?.email
     };
 
     const handleFav = async () => {
@@ -55,6 +70,26 @@ function Card({ id, img, price, star, name, des }) {
         }
     }, [refresh]);
 
+    const handleUpdateClick = () => {
+        setCurrentItem(updateItem);
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleUpdate = async (updatedItem) => {
+        try {
+            await axiosSecure.put(`/updateItem/${id}`, updatedItem);
+            toast.success("Food updated successfully!");
+            setReload(!reload)
+            setIsModalOpen(false);
+        } catch (error) {
+            toast.error("Failed to update the item.");
+        }
+    };
+    
     return (
         <div>
             <div className='bg-[#f2f2f2] w-fit px-10 py-5 rounded-2xl shadow-lg'>
@@ -82,7 +117,19 @@ function Card({ id, img, price, star, name, des }) {
                         </div>
                     </div>
                 </Link>
+                {
+                    user?.email === email && <div className='flex justify-between items-center pt-3'>
+                        <button onClick={() => handleUpdateClick()} className='bg-orange-600 px-3 py-2 rounded-lg text-white cursor-pointer'>Update</button>
+                        <button className='bg-orange-600 px-3 py-2 rounded-lg text-white cursor-pointer'>Delete</button>
+                    </div>
+                }
             </div>
+            <UpdateModal
+                isOpen={isModalOpen}
+                onClose={handleModalClose}
+                itemData={currentItem}
+                onUpdate={handleUpdate}
+            />
         </div>
     );
 }
