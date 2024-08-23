@@ -6,9 +6,9 @@ function Profile() {
   const [role] = useRole()
   const {user} = useContext(AuthContext)
   return (
-    <div className='flex items-center justify-center flex-col pt-16'>
+    <div className='flex items-center justify-center flex-col pt-16 '>
       <h1 className='font-semibold text-2xl'>My Profile</h1>
-      <div className='pt-10 flex flex-col gap-3'>
+      <div className='mt-10 flex flex-col gap-3 bg-white px-10 py-5 rounded-lg shadow-xl border-orange-200 border-2'>
           <img className='rounded-full w-40 mx-auto' src={user?.photoURL} alt="" />
           <h1 className='font-semibold  text-xl'>Name: <span className='px-2 font-semibold  text-orange-600'>{user?.displayName}</span></h1>
           <h1 className='font-semibold  text-xl'>Email: <span className='px-2 font-semibold  text-orange-600'>{user?.email}</span></h1>

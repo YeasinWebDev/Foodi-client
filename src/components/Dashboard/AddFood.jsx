@@ -22,7 +22,7 @@ function AddFood() {
   const [imageFile, setImageFile] = useState(null);
   const [submitTriggered, setSubmitTriggered] = useState(false);
 
-  const categories = ['Pizza', 'Salad', 'Dessert', 'Drinks'];
+  const categories = ['Pizza', 'Salad', 'Desserts', 'Drinks'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;

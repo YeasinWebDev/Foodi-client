@@ -8,7 +8,7 @@ function Dishes() {
     const [data, setData] = useState([]) // Set initial state as an empty array
 
     useEffect(() => {
-        const categoryArray = ['Pizza', 'Salad', 'Dessert', 'Drinks']
+        const categoryArray = ['Pizza', 'Salad', 'Desserts', 'Drinks']
         const randomCategory = categoryArray[Math.floor(Math.random() * categoryArray.length)]
         setCategory(randomCategory)
     }, [])
@@ -22,7 +22,6 @@ function Dishes() {
     const fetchData = async () => {
         try {
             const res = await axiosCommon.post('/subCategory', { category })
-            console.log('API Response:', res.data)
             setData(res.data) // Ensure res.data is an array
         } catch (error) {
             console.error('Error fetching data:', error)

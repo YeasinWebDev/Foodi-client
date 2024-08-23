@@ -31,7 +31,7 @@ const data = [
     },
     {
         img: '/assets/dessert.jpg',
-        name: "Dessert"
+        name: "Desserts"
     },
     {
         img: '/assets/drinks.png',

@@ -8,7 +8,7 @@ const UpdateModal = ({ isOpen, onClose, itemData, onUpdate }) => {
     const { user } = useContext(AuthContext);
     const [imagePreview, setImagePreview] = useState(itemData.img || '');
 
-    const categories = ['Pizza', 'Salad', 'Dessert', 'Drinks'];
+    const categories = ['Pizza', 'Salad', 'Desserts', 'Drinks'];
 
     useEffect(() => {
         setFormData(itemData);

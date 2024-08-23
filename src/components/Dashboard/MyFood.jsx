@@ -21,7 +21,7 @@ function MyFood() {
     <div>
       <h1 className='flex items-center justify-center font-semibold text-2xl pt-16 pb-10'>My Food</h1>
         {
-          data ? 
+          data.length >0 ? 
           <div className='lg:w-[90%] mx-auto w-full flex flex-wrap gap-6 lg:pl-2'>
             {
               data.map(item =>(
@@ -30,7 +30,7 @@ function MyFood() {
             }
           </div>
           :
-          <h1 className='flex items-center justify-center font-semibold text-xl'>No data Found</h1>
+          <h1 className='flex items-center justify-center font-semibold text-xl'>No <span className='px-2 text-orange-500'>Food</span> Found</h1>
         }
     </div>
   )
