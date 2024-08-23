@@ -89,6 +89,16 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
             toast.error("Failed to update the item.");
         }
     };
+
+    const handelDelete = async () => {
+        try {
+            await axiosSecure.delete(`/deletefood/${id}`);
+            toast.success("Food deleted successfully!");
+            setReload(!reload)
+        } catch (error) {
+            toast.error("Failed to delete the item.");
+        }
+    }
     
     return (
         <div>
@@ -120,7 +130,7 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
                 {
                     user?.email === email && <div className='flex justify-between items-center pt-3'>
                         <button onClick={() => handleUpdateClick()} className='bg-orange-600 px-3 py-2 rounded-lg text-white cursor-pointer'>Update</button>
-                        <button className='bg-orange-600 px-3 py-2 rounded-lg text-white cursor-pointer'>Delete</button>
+                        <button onClick={() => handelDelete()} className='bg-orange-600 px-3 py-2 rounded-lg text-white cursor-pointer'>Delete</button>
                     </div>
                 }
             </div>

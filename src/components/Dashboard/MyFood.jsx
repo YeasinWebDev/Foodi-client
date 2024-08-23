@@ -22,7 +22,7 @@ function MyFood() {
       <h1 className='flex items-center justify-center font-semibold text-2xl pt-16 pb-10'>My Food</h1>
         {
           data ? 
-          <div className='md:w-[90%] mx-auto w-full flex flex-wrap gap-6'>
+          <div className='lg:w-[90%] mx-auto w-full flex flex-wrap gap-6 lg:pl-2'>
             {
               data.map(item =>(
                 <Card setReload={setReload} reload={reload} email={item.addedByEmail} key={item._id} id={item._id} img={item.img} price={item.price} star={item.rating} name={item.name} des={item.des} items={item.items} category={item.category}/>

@@ -61,7 +61,9 @@ function Nav() {
                                 </NavLink>
                             </li>
                             <li>
-                            <Link to={role && role === 'admin' ? '/dashboard/profile' : '/dashboard/profile'}  className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Dashboard</Link>
+                                <NavLink to={'/dashboard/profile'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
+                                    Dashboard
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
@@ -89,7 +91,7 @@ function Nav() {
                         </Link>
                         {user ?
                             <>
-                                <Link to={role && role === 'admin' ? '/dashboard/profile' : '/dashboard/profile'}  className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl hidden lg:flex'>Dashboard</Link>
+                                <Link to={'/dashboard/profile'} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl hidden lg:flex'>Dashboard</Link>
                                 <button onClick={() => handelLogOut()} className='bg-orange-600 text-white px-4 py-2 font-semibold rounded-xl'>Log Out</button>
                                 <img className='w-10 rounded-full hidden md:block md:mr-10 mr-0' src={user?.photoURL} alt="img" />
                             </>
