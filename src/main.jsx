@@ -25,6 +25,7 @@ import MyFood from './components/Dashboard/MyFood';
 import MyTransition from './components/Dashboard/MyTransition';
 import AllUsers from './components/Dashboard/AllUsers';
 import MyFav from './components/Dashboard/MyFav';
+import Statistics from './components/Dashboard/Statistics';
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path:'myFav',
         element:<PrivateRoute><MyFav/></PrivateRoute>
+      },
+      {
+        path:'statistics',
+        element:<PrivateRoute><Statistics/></PrivateRoute>
       }
     ]
   }

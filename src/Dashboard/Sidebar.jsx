@@ -42,6 +42,9 @@ function Sidebar() {
                                 <NavLink to="/dashboard/profile" className={({ isActive }) => `border-2 px-5 py-2 mb-4 font-semibold text-lg rounded-xl ${isActive ? 'bg-orange-300' : ''}`}>
                                     Admin Profile
                                 </NavLink>
+                                <NavLink to="/dashboard/statistics" className={({ isActive }) => `border-2 px-5 py-2 mb-4 font-semibold text-lg rounded-xl ${isActive ? 'bg-orange-300' : ''}`}>
+                                Statistics
+                                </NavLink>
                                 <NavLink to="/dashboard/allUsers" className={({ isActive }) => `border-2 px-5 py-2 mb-4 font-semibold text-lg rounded-xl ${isActive ? 'bg-orange-300' : ''}`}>
                                     All Users
                                 </NavLink>
