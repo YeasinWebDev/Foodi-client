@@ -119,7 +119,7 @@ function Details() {
                 <div className='flex items-center justify-center gap-5 flex-wrap pt-5'>
                     {
                         filtertedCategory?.map(item => (
-                            <Card key={item?._id} id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price} />
+                            <Card key={item?._id} id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price} num={item.num}/>
                         ))
                     }
                 </div>

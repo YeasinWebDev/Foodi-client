@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../Auth/ContextProvider';
 import UpdateModal from './UpdateModal ';
 
-function Card({ id, img, price, star, name, des, email,items,category,setReload,reload,fav }) {
+function Card({ id, img, price, star, name, des, email,items,category,num,setReload,reload,fav }) {
     const [favArray, setFavArray] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
@@ -21,6 +21,7 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
         rating: star,
         name: name,
         des: des,
+        num:num,
         email: user?.email
     };
     const updateItem = {
@@ -37,7 +38,7 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
     };
 
     const handleFav = async () => {
-        const isFavorite = favArray?.some(favItem => favItem === id);
+        const isFavorite = favArray?.some(favItem => favItem.num === num);
         
         try {
 
@@ -57,7 +58,7 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
 
     const getFav = async () => {
         try {
-            const res = await axiosSecure.get(`/fav`);
+            const res = await axiosSecure.get(`/fav`, {params:{email:user?.email}});
             setFavArray(res.data);
         } catch (error) {
             console.error("Error fetching favorite status:", error);
@@ -99,13 +100,13 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
             toast.error("Failed to delete the item.");
         }
     }
-    
+
     return (
         <div>
             <div className='bg-[#f2f2f2] w-fit px-10 py-5 rounded-2xl shadow-lg'>
                 {
                     fav === 'no'? <></> : <div onClick={handleFav} className='relative cursor-pointer'>
-                    {favArray?.some(favItem => favItem === id) ?
+                    {favArray?.some(favItem => favItem.num === num) ?
                         <FaHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
                         :
                         <FaRegHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
