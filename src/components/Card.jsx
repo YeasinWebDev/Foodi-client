@@ -32,6 +32,7 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
         des: des,
         items: items, 
         email: user?.email,
+        num:num,
         category:category,
         addedBy: user?.displayName,
         addedByEmail:user?.email
