@@ -24,9 +24,9 @@ function MyTransition() {
 
   return (
     <div>
-      <h1 className="flex items-center justify-center font-semibold pt-16 text-2xl">My Transition</h1>
+      <h1 className="flex items-center justify-center font-semibold pt-16 text-2xl pb-10">My Transition</h1>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full 2xl:w-[80%] mx-auto p-10 rounded-xl shadow-xl">
         <table className="table">
           {/* head */}
           <thead>
@@ -45,7 +45,7 @@ function MyTransition() {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.email}</td>
-                  <td>{format(new Date(item.paymentData), 'MMMM do, yyyy h:mm a')}</td>
+                  <td>{format(new Date(item.paymentData), 'MMMM do')}</td>
                   <td className="text-red-600">${item.totalAmount}</td>
                   <td className="text-green-500">{item.paymentStatus}</td>
                   <td>

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../Auth/ContextProvider';
 import UpdateModal from './UpdateModal ';
 
-function Card({ id, img, price, star, name, des, email,items,category,setReload,reload }) {
+function Card({ id, img, price, star, name, des, email,items,category,setReload,reload,fav }) {
     const [favArray, setFavArray] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
@@ -103,13 +103,15 @@ function Card({ id, img, price, star, name, des, email,items,category,setReload,
     return (
         <div>
             <div className='bg-[#f2f2f2] w-fit px-10 py-5 rounded-2xl shadow-lg'>
-                <div onClick={handleFav} className='relative cursor-pointer'>
+                {
+                    fav === 'no'? <></> : <div onClick={handleFav} className='relative cursor-pointer'>
                     {favArray?.some(favItem => favItem === id) ?
                         <FaHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
                         :
                         <FaRegHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
                     }
                 </div>
+                }
                 <Link to={`/itemDetails/${id}`}>
                     <div>
                         <img

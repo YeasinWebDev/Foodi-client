@@ -7,11 +7,11 @@ import { AuthContext } from '../Auth/ContextProvider';
 
 function Sidebar() {
     const [role] = useRole()
-    const { user, LogOut } = useContext(AuthContext)
+    const { logOut } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handelLogout = () => {
-        LogOut()
+        logOut()
         navigate('/')
         toast.success("LogOut successfully")
     }
@@ -59,6 +59,9 @@ function Sidebar() {
                                 </NavLink>
                                 <NavLink to="/dashboard/myTransition" className={({ isActive }) => `border-2 px-5 py-2 mb-4 font-semibold text-lg rounded-xl ${isActive ? 'bg-orange-300' : ''}`}>
                                     My Transition
+                                </NavLink>
+                                <NavLink to="/dashboard/myFav" className={({ isActive }) => `border-2 px-5 py-2 mb-4 font-semibold text-lg rounded-xl ${isActive ? 'bg-orange-300' : ''}`}>
+                                    My Favorite
                                 </NavLink>
                             </>
 
