@@ -60,6 +60,16 @@ function Nav() {
                                 </NavLink>
                             </li>
                             <li>
+                                <NavLink to={'/about'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
+                                    About Us
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={'/contact'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
+                                    Contact Us
+                                </NavLink>
+                            </li>
+                            <li>
                                 <NavLink to={'/dashboard/profile'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
                                     Dashboard
                                 </NavLink>
@@ -69,7 +79,7 @@ function Nav() {
                     <Link to={'/'} className="btn btn-ghost text-xl"><img className='w-20 md:w-28' src="/assets/logo.png" alt="" /></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 z-[1]">
+                    <ul className="menu menu-horizontal z-[1]">
                         <li>
                             <NavLink to={'/'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
                                 Home
@@ -80,9 +90,19 @@ function Nav() {
                                 Menu
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink to={'/about'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
+                                About Us
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'/contact'} className={({ isActive }) => `p-2 lg:text-lg text-sm hover:text-orange-600 font-semibold ease-in-out duration-300 cursor-pointer ${isActive ? 'text-[#EC5C53]' : 'p-2'}`}>
+                                Contact Us
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
-                <div className="navbar-end absolute right-0">
+                <div className="navbar-end">
                     <div className='flex items-center justify-center gap-2'>
                         <Link to={'/cart'} className='cursor-pointer relative flex gap-1'>
                             <img src="/assets/bag.png" alt="" />

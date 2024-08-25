@@ -26,6 +26,8 @@ import MyTransition from './components/Dashboard/MyTransition';
 import AllUsers from './components/Dashboard/AllUsers';
 import MyFav from './components/Dashboard/MyFav';
 import Statistics from './components/Dashboard/Statistics';
+import Contact from './Page/ContactUs';
+import About from './Page/AboutUs';
 
 const queryClient = new QueryClient();
 
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path:'/success',
         element:<SuccessPage/>
+      },
+      {
+        path:'/contact',
+        element:<Contact/>
+      },
+      {
+        path:'/about',
+        element:<About/>
       }
     ]
   },
