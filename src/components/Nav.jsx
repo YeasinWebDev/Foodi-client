@@ -5,8 +5,7 @@ import useRole from '../Hooks/useRole';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
 
 function Nav() {
-    const { user, logOut, qty, setQty, refress, setrefress } = useContext(AuthContext);
-    const [role] = useRole();
+    const { user, logOut, qty, setQty, refress } = useContext(AuthContext);
     const axiosCommon = useAxiosCommon()
     const navigate = useNavigate();
 

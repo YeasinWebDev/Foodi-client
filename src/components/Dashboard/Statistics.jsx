@@ -55,7 +55,7 @@ function Statistics() {
     return (
         <>
             <h1 className='flex items-center justify-center text-2xl font-semibold pt-16 pb-10'>Statistics</h1>
-            <div className='flex gap-3 items-center justify-center flex-wrap'>
+            <div className='flex gap-3 items-center justify-center flex-wrap border-b-2 border-dashed pb-10'>
                 {/* 1 */}
                 <div className='flex items-center justify-center gap-8 border-2 rounded-xl shadow-md w-fit px-5 py-3 bg-yellow-400'>
                     <span><LuSalad size={34} color='#fff' /></span>
@@ -103,6 +103,7 @@ function Statistics() {
             </div>
 
             <div style={{ width: '100%', height: '400px' }}>
+                <h1 className='flex items-center justify-center font-semibold text-2xl pt-5'>Pie Chart</h1>
                 <ResponsiveContainer>
                     <PieChart>
                         <Pie
