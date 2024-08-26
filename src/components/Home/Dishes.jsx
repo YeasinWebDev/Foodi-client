@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Card from '../Card'
 import useAxiosCommon from '../../Hooks/useAxiosCommon'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+
 
 function Dishes() {
     const axiosCommon = useAxiosCommon()
     const [category, setCategory] = useState('')
-    const [data, setData] = useState([]) // Set initial state as an empty array
+    const [data, setData] = useState([])
+    const cardsRef = useRef([]) 
 
     useEffect(() => {
         const categoryArray = ['Pizza', 'Salad', 'Desserts', 'Drinks']
@@ -22,11 +26,31 @@ function Dishes() {
     const fetchData = async () => {
         try {
             const res = await axiosCommon.post('/subCategory', { category })
-            setData(res.data) // Ensure res.data is an array
+            setData(res.data)
         } catch (error) {
             console.error('Error fetching data:', error)
         }
     }
+
+    useGSAP(() => {
+        if (data.length > 0) {
+            gsap.fromTo(cardsRef.current, {
+                opacity: 0,
+                scale: 0.8
+            }, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: cardsRef.current,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse",
+                }
+            })
+        }
+    }, [data])
 
     return (
         <div className='lg:w-[90%] w-full mx-auto mt-20'>
@@ -36,7 +60,7 @@ function Dishes() {
                 {
                     data.length > 0 ?
                         data.slice(0, 4).map((item, index) => (
-                            <div key={index} className="flex-shrink-0">
+                            <div key={index} className="flex-shrink-0" ref={el => cardsRef.current[index] = el}>
                                 <Card id={item._id} img={item.img} name={item.name} des={item.des} star={item.rating} price={item.price} />
                             </div>
                         ))
@@ -49,3 +73,4 @@ function Dishes() {
 }
 
 export default Dishes
+
