@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useAxiosCommon from '../Hooks/useAxiosCommon';
 import Card from '../components/Card';
 import { TiDeleteOutline } from "react-icons/ti";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Menu() {
   const [activeTab, setActiveTab] = useState('All');
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchData, setSearchData] = useState('')
-  const [reload, setreload] = useState(false)
+  const [searchData, setSearchData] = useState('');
+  const [reload, setReload] = useState(false);
   const axiosCommon = useAxiosCommon();
+
+  const itemsRef = useRef([]);
 
   // for pagination 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
 
   const categories = ['All', 'Salad', 'Pizza', 'Desserts', 'Drinks'];
 
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
-      setSearchData('')
+      setSearchData('');
       try {
-        // Make API call with both category and search term
         const response = await axiosCommon(`/food-items?category=${activeTab}&page=${currentPage}&limit=6`);
         setItems(response.data.items);
         setTotalPages(response.data.totalPages);
@@ -36,26 +42,48 @@ function Menu() {
     };
 
     fetchItems();
-  }, [activeTab, currentPage,reload]);
+  }, [activeTab, currentPage, reload]);
 
+  useGSAP(() => {
+    if (items.length > 0) {
+      itemsRef.current.forEach((item, index) => {
+        gsap.fromTo(
+          item,
+          { opacity: 0, scale: 0.8 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            delay: index * 0.1,
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 90%',
+              end: 'top 70%',
+              toggleActions: 'play none none reverse',
+            }
+          }
+        );
+      });
+    }
+  }, [items]);
 
-  // handel search item
-  const handelsearch = async () => {
-    setSearchData(searchTerm)
-    setCurrentPage(1)
+  // Handle search item
+  const handleSearch = async () => {
+    setSearchData(searchTerm);
+    setCurrentPage(1);
     const result = await axiosCommon.post('/search-items', { value: searchTerm });
     setItems(result.data.items);
     setTotalPages(result.data.totalPages);
     setSearchTerm('');
-  }
+  };
 
-  const handelClear =() => {
+  const handleClear = () => {
     setSearchData('');
     setSearchTerm('');
     setCurrentPage(1);
-    setActiveTab('All'); 
-    setreload(!reload)
-  }
+    setActiveTab('All');
+    setReload(!reload);
+  };
 
   return (
     <div>
@@ -79,11 +107,11 @@ function Menu() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button onClick={() => handelsearch()} className='btn bg-orange-600 hover:bg-orange-800 text-white px-3 py-2 rounded-xl'>Search</button>
+        <button onClick={handleSearch} className='btn bg-orange-600 hover:bg-orange-800 text-white px-3 py-2 rounded-xl'>Search</button>
       </div>
       <div className='w-full flex items-center justify-center pt-3'>
         {
-          searchData && <h2 className='bg-orange-600 text-white px-3 py-2 rounded-xl w-fit flex items-center justify-center gap-3 cursor-pointer'>{searchData} <span onClick={() => handelClear()}><TiDeleteOutline color='white' size={29}/></span></h2>
+          searchData && <h2 className='bg-orange-600 text-white px-3 py-2 rounded-xl w-fit flex items-center justify-center gap-3 cursor-pointer'>{searchData} <span onClick={() => handleClear()}><TiDeleteOutline color='white' size={29}/></span></h2>
 
         }
       </div>
@@ -94,7 +122,7 @@ function Menu() {
           <button
             key={category}
             className={`px-4 py-2 ${activeTab === category ? 'bg-orange-700 text-white' : 'bg-gray-200'} rounded-xl`}
-            onClick={() => setActiveTab(category)}
+            onClick={() => {setActiveTab(category), setCurrentPage(1)}}
           >
             {category}
           </button>
@@ -112,8 +140,14 @@ function Menu() {
         ) : (
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full md:w-[80%] mx-auto">
             {items?.length > 0 ? (
-              items.map(item => (
-                <Card key={item?._id} id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price} num={item?.num} />
+              items.map((item, index) => (
+                <div 
+                  key={item?._id} 
+                  className="flex-shrink-0" 
+                  ref={el => itemsRef.current[index] = el} // Store reference to the item
+                >
+                  <Card id={item?._id} img={item?.img} name={item?.name} des={item?.des} star={item?.rating} price={item?.price} num={item?.num} />
+                </div>
               ))
             ) : (
               <h1 className="text-orange-500 font-semibold">No items found</h1>
