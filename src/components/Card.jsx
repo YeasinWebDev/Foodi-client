@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../Auth/ContextProvider';
 import UpdateModal from './UpdateModal ';
 
-function Card({ id, img, price, star, name, des, email,items,category,num,setReload,reload,fav }) {
+function Card({ id, img, price, star, name, des, email = '', items, category, num, setReload, reload, fav }) {
     const [favArray, setFavArray] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const { user } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
         rating: star,
         name: name,
         des: des,
-        num:num,
+        num: num,
         email: user?.email
     };
     const updateItem = {
@@ -30,17 +30,17 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
         rating: star,
         name: name,
         des: des,
-        items: items, 
+        items: items,
         email: user?.email,
-        num:num,
-        category:category,
+        num: num,
+        category: category,
         addedBy: user?.displayName,
-        addedByEmail:user?.email
+        addedByEmail: user?.email
     };
 
     const handleFav = async () => {
         const isFavorite = favArray?.some(favItem => favItem.num === num);
-        
+
         try {
 
             if (isFavorite) {
@@ -59,7 +59,7 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
 
     const getFav = async () => {
         try {
-            const res = await axiosSecure.get(`/fav`, {params:{email:user?.email}});
+            const res = await axiosSecure.get(`/fav`, { params: { email: user?.email } });
             setFavArray(res.data);
         } catch (error) {
             console.error("Error fetching favorite status:", error);
@@ -104,15 +104,15 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
 
     return (
         <div>
-            <div className='bg-[#f2f2f2] w-fit px-10 py-5 rounded-2xl shadow-lg'>
+            <div className='bg-[#f2f2f2] w-fit px-8 py-5 rounded-2xl shadow-lg relative'>
                 {
-                    fav === 'no'? <></> : <div onClick={handleFav} className='relative cursor-pointer'>
-                    {favArray?.some(favItem => favItem.num === num) ?
-                        <FaHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
-                        :
-                        <FaRegHeart className='absolute -right-9 -top-4 p-2 bg-orange-600 rounded-tr-2xl rounded-bl-2xl' color='#fff' size={35} />
-                    }
-                </div>
+                    fav === 'no' ? <></> : <div onClick={handleFav} className='absolute right-7  cursor-pointer'>
+                        {favArray?.some(favItem => favItem.num === num) ?
+                            <FaHeart className='p-2 bg-orange-600 rounded-full' color='#fff' size={35} />
+                            :
+                            <FaRegHeart className='p-2 bg-orange-600 rounded-full' color='#fff' size={35} />
+                        }
+                    </div>
                 }
                 <Link to={`/itemDetails/${id}`}>
                     <div>
@@ -123,7 +123,7 @@ function Card({ id, img, price, star, name, des, email,items,category,num,setRel
                         />
                         <div className='flex flex-col gap-2 pt-3'>
                             <h1 className='font-semibold text-xl'>{name}</h1>
-                            <h1 className='font-semibold text-sm'>{des?.slice(0, 40)}</h1>
+                            <h1 className='font-semibold text-sm'>{des?.slice(0, 30)}</h1>
                             <div className='flex justify-between'>
                                 <h1 className='font-semibold text-lg'><span className='text-red-600'>$</span> {price}</h1>
                                 <h1 className='flex items-center gap-2 font-semibold'><img src="/assets/star.png" alt="" />{star}</h1>

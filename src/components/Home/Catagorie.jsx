@@ -17,7 +17,8 @@ function Catagorie() {
             scrollTrigger: {
                 trigger: '.catagory-card',
                 start: 'top 80%',
-                toggleActions: 'play none none reverse',            
+                toggleActions: 'play none none none', 
+                once:true         
             }
         });
 
@@ -29,7 +30,8 @@ function Catagorie() {
             scrollTrigger: {
                 trigger: '.fav',
                 start: 'top 80%',
-                toggleActions: 'play none none reverse',
+                toggleActions: 'play none none none',
+                 once:true     
             }
         })
     }, []);

@@ -9,7 +9,7 @@ function Dishes() {
     const axiosCommon = useAxiosCommon()
     const [category, setCategory] = useState('')
     const [data, setData] = useState([])
-    const cardsRef = useRef([]) 
+    const cardsRef = useRef([])
 
     useEffect(() => {
         const categoryArray = ['Pizza', 'Salad', 'Desserts', 'Drinks']
@@ -33,24 +33,27 @@ function Dishes() {
     }
 
     useGSAP(() => {
-        if (data.length > 0) {
-            gsap.fromTo(cardsRef.current, {
-                opacity: 0,
-                scale: 0.8
-            }, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: cardsRef.current,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse",
-                }
-            })
+        if (data.length > 0 && cardsRef.current) {
+            cardsRef.current.forEach((card, index) => {
+                gsap.fromTo(card, {
+                    opacity: 0,
+                    scale: 0.8
+                }, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: index * 0.2,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        once: true
+                    }
+                });
+            });
         }
-    }, [data])
+    }, [data]);
+
 
     return (
         <div className='lg:w-[90%] w-full mx-auto mt-20'>
