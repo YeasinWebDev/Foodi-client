@@ -9,7 +9,7 @@ export const AuthContext = createContext(null);
 function ContextProvider({ children }) {
     const [user, setUser] = useState(null);
     const [qty, setQty] = useState(0)
-    const [refress, setrefress] = useState(false)
+    const [refresh, setRefresh] = useState(false)
     const [loading, setLoading] = useState(true);
     const axiosCommon = useAxiosCommon()
 
@@ -54,14 +54,14 @@ function ContextProvider({ children }) {
     };
 
     const saveUser = async user => {
-        const currentuser = {
+        const currentUser = {
             email: user?.email,
             name: user?.name || user?.displayName,
             pin: user?.pin,
             role: "user",
         };
 
-        const { data } = await axiosCommon.put(`/user`, currentuser);
+        const { data } = await axiosCommon.put(`/user`, currentUser);
         return data;
     };
 
@@ -83,7 +83,7 @@ function ContextProvider({ children }) {
     }, []);
 
 
-    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading, logInByGoogle, updateUserProfile, saveUser, qty, setrefress, refress,setQty };
+    const authInfo = { user, setUser, createUser, signIn, logOut, loading, setLoading, logInByGoogle, updateUserProfile, saveUser, qty, setRefresh, refresh,setQty };
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
